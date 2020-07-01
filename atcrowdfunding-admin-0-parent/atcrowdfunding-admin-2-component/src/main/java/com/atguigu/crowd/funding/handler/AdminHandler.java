@@ -4,8 +4,10 @@ import com.atguigu.crowd.funding.entity.Admin;
 import com.atguigu.crowd.funding.entity.ResultEntity;
 import com.atguigu.crowd.funding.service.api.AdminService;
 import com.atguigu.crowd.funding.util.CrowdFundingConstant;
+import com.atguigu.crowd.funding.util.CrowdFundingUtils;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 @Controller
@@ -22,12 +25,46 @@ public class AdminHandler {
     @Autowired
     private AdminService adminService;
     
+    @RequestMapping("/admin/update")
+    public String updateAdmin(Admin admin, @RequestParam("pageNum") String pageNum) {
+        try {
+            adminService.updateAdmin(admin);
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (e instanceof DuplicateKeyException) {
+                throw new RuntimeException(CrowdFundingConstant.MESSAGE_LOGIN_ACCT_ALREADY_IN_USE);
+            }
+        }
+        
+        return "redirect:/admin/query/for/search.html?pageNum=" + pageNum;
+    }
+    
+    @RequestMapping("/admin/to/edit/page")
+    public String toEditPage(@RequestParam("adminId") Integer adminId, Model model) {
+        Admin admin = adminService.getAdminById(adminId);
+        
+        model.addAttribute("admin", admin);
+        return "admin-edit";
+    }
+    
+    @RequestMapping("/admin/save")
+    public String saveAdmin(Admin admin) {
+        try {
+            adminService.saveAdmin(admin);
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (e instanceof DuplicateKeyException) {
+                throw new RuntimeException(CrowdFundingConstant.MESSAGE_LOGIN_ACCT_ALREADY_IN_USE);
+            }
+        }
+        
+        return "redirect:/admin/query/for/search.html";
+    }
+    
     @ResponseBody
     @RequestMapping("/admin/batch/remove")
     public ResultEntity<String> batchRemove(@RequestBody List<Integer> adminIdList) {
         try {
-            // System.out.println(10/0);
-            
             adminService.batchRemove(adminIdList);
             return ResultEntity.successWithoutData();
         } catch (Exception e) {

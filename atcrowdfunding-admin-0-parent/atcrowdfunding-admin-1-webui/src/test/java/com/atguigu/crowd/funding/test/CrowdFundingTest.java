@@ -29,7 +29,7 @@ public class CrowdFundingTest {
     
     @Test
     public void batchSaveAdmin() {
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < 200; i++) {
             adminMapper.insert(new Admin(null, "loginAcct" + i, "1111", "userName" + i, "email" + i + "qq.com", null));
         }
     }
@@ -46,7 +46,7 @@ public class CrowdFundingTest {
     
     @Test
     public void testTx() {
-        adminService.updateAdmin();
+        // adminService.updateAdmin();
     }
     
     @Test

@@ -25,10 +25,12 @@ public class AdminServiceImpl implements AdminService {
     }
     
     @Override
-    public void updateAdmin() {
-        adminMapper.updateByPrimaryKey(new Admin(1, "harry333", "123123", "哈利3", "harry@qq.com", null));
-        // System.out.println(10 / 0);
-        adminMapper.updateByPrimaryKey(new Admin(2, "potter333", "123123", "波特3", "potter@qq.com", null));
+    public void updateAdmin(Admin admin) {
+        String userPswd = admin.getUserPswd();
+        userPswd = CrowdFundingUtils.md5(userPswd);
+        admin.setUserPswd(userPswd);
+        
+        adminMapper.updateByPrimaryKey(admin);
     }
     
     @Override
@@ -76,5 +78,19 @@ public class AdminServiceImpl implements AdminService {
         adminExample.createCriteria().andIdIn(adminIdList);
         
         adminMapper.deleteByExample(adminExample);
+    }
+    
+    @Override
+    public void saveAdmin(Admin admin) {
+        String userPswd = admin.getUserPswd();
+        userPswd = CrowdFundingUtils.md5(userPswd);
+        admin.setUserPswd(userPswd);
+        
+        adminMapper.insert(admin);
+    }
+    
+    @Override
+    public Admin getAdminById(Integer adminId) {
+        return adminMapper.selectByPrimaryKey(adminId);
     }
 }

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="UTF-8" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link rel="stylesheet" href="my.css" th:href="@{/resources/my.css}">
+</head>
+<body>
+<p>Hello!Everyone![[${attrName}]]</p>
+<p>Hello!Everyone![(${attrName})]</p>
+<p>[[@{/very/good}]]<p>
+<p>标签本身的旧内容</p>
+<p th:text="${attrName}">标签本身的旧内容</p>
+<p class="my-content">AAAAAAAAAAAAA</p>
+
+<div th:insert="~{include/part::greenWord}">原本内容</div>
+<div th:replace="~{include/part::redWord}">原本内容</div>
+<div th:include="~{include/part::yellowWord}">原本内容</div>
+</body>
+</html>

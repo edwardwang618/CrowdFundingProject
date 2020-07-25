@@ -1,0 +1,8 @@
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false #开发的时候禁用缓存
+server:
+  servlet:
+    context-path: /banana

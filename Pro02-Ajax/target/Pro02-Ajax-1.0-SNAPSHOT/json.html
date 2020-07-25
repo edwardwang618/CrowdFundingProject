@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="jquery-2.1.1.min.js"></script>
+<script type="text/javascript">
+	
+	$(function(){
+		$("button").click(function(){
+			
+			// Ajax请求的请求体如果是JSON格式，那么需要先将数据封装为JSON对象
+			var jsonObj = [
+				{
+					"empId":666,
+					"empName":"jerry",
+					"empSalary":123.321
+				},
+				{
+					"empId":555,
+					"empName":"bob",
+					"empSalary":456.654
+				},
+				{
+					"empId":444,
+					"empName":"kate",
+					"empSalary":666.666
+				}
+			];
+			
+			// 将JSON对象转换为JSON字符串
+			var requestBody = JSON.stringify(jsonObj);
+			
+			// 发送Ajax请求
+			$.ajax({
+				"url":"ajax/send/json/data",	// 请求的目标地址
+				"type":"post",					// 请求方式
+				"data":requestBody,				// 请求体数据
+				"contentType":"application/json;charset=UTF-8",	//非默认值，不能省略
+				"dataType":"json",				// 服务器端返回数据的解析方式
+				"success":function(response) {			// 服务器处理请求成功，执行这个函数，响应体从参数这里传入
+					
+					// response已经解析为JSON对象，可以直接使用“.属性名”方式访问具体属性
+					var result = response.result;
+				
+					// 如果返回结果成功，显示成功（逻辑成功）
+					if("SUCCESS" == result) {
+						alert("SUCCESS");
+					}
+					
+					// 如果返回结果失败，显示消息（逻辑失败）
+					if("FAILED" == result) {
+						
+						var message = response.message;
+						
+						alert(message);
+					}
+					
+				}, 
+				
+				"error":function(response){			// 处理请求失败，例如：404、500、400等等
+					
+					alert(response);
+					
+				}
+			});
+			
+		});
+	});
+	
+</script>
+</head>
+<body>
+
+	<button>以JSON格式提交数据</button>
+
+</body>
+</html>

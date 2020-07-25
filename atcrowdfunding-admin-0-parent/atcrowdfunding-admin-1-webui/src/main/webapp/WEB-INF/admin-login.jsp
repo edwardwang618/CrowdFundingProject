@@ -31,11 +31,11 @@
 
 	<div class="container">
 
-		<form action="admin/do/login.html" class="form-signin" role="form" method="post">
+		<form action="admin/security/do/login.html" class="form-signin" role="form" method="post">
 			<h2 class="form-signin-heading">
 				<i class="glyphicon glyphicon-log-in"></i> 管理员登录
 			</h2>
-			<p>${requestScope.MESSAGE }</p>
+			<p>${SPRING_SECURITY_LAST_EXCEPTION.message }</p>
 			<div class="form-group has-success has-feedback">
 				<input 
 					type="text"

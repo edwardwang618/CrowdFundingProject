@@ -8,6 +8,7 @@ import com.atguigu.crowd.funding.util.CrowdFundingUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +19,9 @@ public class AdminServiceImpl implements AdminService {
     
     @Autowired
     private AdminMapper adminMapper;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     
     @Override
     public List<Admin> getAll() {
@@ -83,7 +87,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void saveAdmin(Admin admin) {
         String userPswd = admin.getUserPswd();
-        userPswd = CrowdFundingUtils.md5(userPswd);
+        userPswd = passwordEncoder.encode(userPswd);
         admin.setUserPswd(userPswd);
         
         adminMapper.insert(admin);

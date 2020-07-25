@@ -4,7 +4,6 @@ import com.atguigu.crowd.funding.entity.Admin;
 import com.atguigu.crowd.funding.entity.ResultEntity;
 import com.atguigu.crowd.funding.service.api.AdminService;
 import com.atguigu.crowd.funding.util.CrowdFundingConstant;
-import com.atguigu.crowd.funding.util.CrowdFundingUtils;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 @Controller

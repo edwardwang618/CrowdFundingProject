@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="jquery-2.1.1.min.js"></script>
+<script type="text/javascript">
+	
+	$(function(){
+		$("button").click(function(){
+			
+			// 真正作为请求体发送给服务器的数据。
+			// 在我们像提交表单一样发送数据时，不把JSON对象转换为JSON字符串
+			var requestBody = {
+				"empId":999,
+				"empName":"harry",
+				"empSalary":128.56
+			};
+			
+			$.ajax({
+				"url":"ajax/send/form/data",	// 请求的目标地址
+				"type":"post",					// 请求方式
+				"data":requestBody,				// 请求体数据
+				"contentType":"application/x-www-form-urlencoded",	//默认值，可以省略该项
+				"dataType":"json",				// 服务器端返回数据的解析方式
+				"success":function(response) {			// 服务器处理请求成功，执行这个函数，响应体从参数这里传入
+					
+					// response已经解析为JSON对象，可以直接使用“.属性名”方式访问具体属性
+					var result = response.result;
+				
+					// 如果返回结果成功，显示成功（逻辑成功）
+					if("SUCCESS" == result) {
+						alert("SUCCESS");
+					}
+					
+					// 如果返回结果失败，显示消息（逻辑失败）
+					if("FAILED" == result) {
+						
+						var message = response.message;
+						
+						alert(message);
+					}
+					
+				}, 
+				
+				"error":function(response){			// 处理请求失败，例如：404、500、400等等
+					
+					alert(response);
+					
+				}
+			});
+		});
+	});
+	
+</script>
+</head>
+<body>
+
+	<button>点我发送数据（像提交表单一样）</button>
+	
+	<form action="" enctype="application/x-www-form-urlencoded"></form>
+
+</body>
+</html>

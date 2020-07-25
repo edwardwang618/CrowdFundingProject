@@ -1,11 +1,20 @@
 package com.atguigu.crowd.funding.util;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 import java.util.Map;
 
 public class CrowdFundingUtils {
+    
+    public static boolean checkAsyncRequest(HttpServletRequest request) {
+        String accept = request.getHeader("Accept");
+        String xRequested = request.getHeader("X-Requested-With");
+        
+        return ((stringEffective(accept) && accept.contains("application/json")) ||
+                (stringEffective(xRequested) && xRequested.contains("XMLHttpRequest")));
+    }
     
     public static <K, V> boolean mapEffective(Map<K, V> map) {
         return map != null && !map.isEmpty();
@@ -40,11 +49,11 @@ public class CrowdFundingUtils {
         try {
             // 执行加密的核心对象
             MessageDigest digest = MessageDigest.getInstance(algorithm);
-    
+            
             byte[] inputBytes = source.getBytes();
             // 执行加密
             byte[] outputBytes = digest.digest(inputBytes);
-    
+            
             for (int i = 0; i < outputBytes.length; i++) {
                 byte b = outputBytes[i];
                 int lowValue = b & 15;

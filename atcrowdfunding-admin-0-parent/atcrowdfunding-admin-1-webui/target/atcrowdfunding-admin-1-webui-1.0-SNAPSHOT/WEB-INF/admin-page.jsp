@@ -3,15 +3,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="UTF-8">
+<head>
 <%@ include file="/WEB-INF/include-head.jsp"%>
 <link rel="stylesheet" href="css/pagination.css" />
 <script type="text/javascript" src="script/jquery.pagination.js"></script>
 <script type="text/javascript" src="script/my-admin.js"></script>
 <script type="text/javascript">
 	$(function() {
-
+		
 		layer.msg("hello layer...");
-
+		
 		// 初始化全局变量
 		window.totalRecord = ${requestScope['PAGE-INFO'].total};
 		window.pageSize = ${requestScope['PAGE-INFO'].pageSize};
@@ -112,6 +113,7 @@
 	});
 	
 </script>
+</head>
 <body>
 
 	<%@ include file="/WEB-INF/include-nav.jsp"%>
@@ -179,12 +181,8 @@
 												<td>${admin.userName }</td>
 												<td>${admin.email }</td>
 												<td>
-													<button type="button" class="btn btn-success btn-xs">
-														<i class=" glyphicon glyphicon-check"></i>
-													</button>
-													<a href="admin/to/edit/page.html?adminId=${admin.id }&pageNum=${requestScope['PAGE-INFO'].pageNum}" class="btn btn-primary btn-xs">
-														<i class=" glyphicon glyphicon-pencil"></i>
-													</a>
+													<a href="assign/to/assign/role/page.html?adminId=${admin.id }&pageNum=${requestScope['PAGE-INFO'].pageNum}" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></a>
+													<a href="admin/to/edit/page.html?adminId=${admin.id }&pageNum=${requestScope['PAGE-INFO'].pageNum}" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></a>
 													<button adminId="${admin.id }" type="button" class="btn btn-danger btn-xs uniqueRemoveBtn">
 														<i class=" glyphicon glyphicon-remove"></i>
 													</button>

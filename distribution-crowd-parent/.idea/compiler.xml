@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="distribution-crowd-3-database-provider" />
+        <module name="distribution-crowd-4-redis-provider" />
+        <module name="distribution-crowd-5-member-manager" />
+        <module name="distribution-crowd-2-registry-center" />
+        <module name="distribution-crowd-6-project-manager" />
+        <module name="distribution-crowd-7-webui" />
+        <module name="distribution-crowd-1-common" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="8" />
+  </component>
+</project>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="jquery-2.1.1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#syncBtn").click(function () {
+                $.ajax({
+                    "url": "test/request",
+                    "type": "post",
+                    "dataType": "text",
+                    "async": false,
+                    "success": function (response) {
+                        console.log("同步方法内部打印：" + response);
+                    }
+                });
+                console.log("同步方法外部打印：" + response);
+            });
+
+            $("#asyncBtn").click(function () {
+                $.ajax({
+                    "url": "test/request",
+                    "type": "post",
+                    "dataType": "text",
+                    "async": true,
+                    "success": function (response) {
+                        console.log("异步方法内部打印：" + response);
+                    }
+                });
+                console.log("异步方法外部打印：" + response);
+            });
+        })
+
+    </script>
+</head>
+<body>
+<button id="syncBtn">发送同步请求</button>
+<button id="asyncBtn">发送异步请求</button>
+</body>
+</html>

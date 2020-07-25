@@ -18,7 +18,7 @@ public class ResultEntity<T> {
         return new ResultEntity<>(SUCCESS, NO_MESSAGE, NO_DATA);
     }
     
-    public static <E> ResultEntity<E> successWithoutData(E data) {
+    public static <E> ResultEntity<E> successWithData(E data) {
         return new ResultEntity<>(SUCCESS, NO_MESSAGE, data);
     }
     
